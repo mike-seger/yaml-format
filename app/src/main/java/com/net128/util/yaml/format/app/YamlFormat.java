@@ -26,7 +26,7 @@ public class YamlFormat {
             System.exit(1);
         }
 
-        String result = new YamlFormatter().formatFile(yamlFile);
+        String result = new YamlFormatter().format(yamlFile);
         logger.info(result);
     }
 }
