@@ -9,15 +9,16 @@ import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.TreeMap;
 
+@SuppressWarnings("unchecked")
 public class YamlFormatter implements StringLoader {
     public String format(String input) {
-        Yaml yaml = new Yaml();
+        var yaml = new Yaml();
         var config = yaml.loadAs(input, TreeMap.class);
         DumperOptions options = new DumperOptions();
         options.setIndent(2);
         options.setPrettyFlow(true);
         options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-        Yaml yamlOut = new Yaml(options);
+        var yamlOut = new Yaml(options);
         return yamlOut.dump(flattenSingletonMaps(config));
     }
     public String formatFile(File input) throws IOException {
@@ -27,7 +28,7 @@ public class YamlFormatter implements StringLoader {
         return format(fromResource(input));
     }
 
-    private static final TreeMap<String, Object> flattenSingletonMaps(final TreeMap<String, Object> rootTree) {
+    private static TreeMap<String, Object> flattenSingletonMaps(final TreeMap<String, Object> rootTree) {
         var result=new TreeMap<String, Object>();
         rootTree.forEach((key, value) -> addSubTree(result, new Node(key, value)));
         return result;
@@ -38,7 +39,7 @@ public class YamlFormatter implements StringLoader {
             var childTree = (Map<String, Object>)node.value;
             if(childTree.size()==1) {
                 addSubTree(parentTree, new Node(node.key, (childTree.entrySet().iterator().next())));
-                node = null;
+                node = null; //do not add this node to parent
             } else {
                 var newChildTree = new TreeMap<String, Object>();
                 childTree.forEach((key, value) -> addSubTree(newChildTree, new Node(key, value)));
