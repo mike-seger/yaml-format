@@ -1,0 +1,9 @@
+plugins {
+    id 'com.net128.util.yaml.format.java-library-conventions'
+}
+
+dependencies {
+    implementation("org.yaml:snakeyaml")
+    implementation("org.slf4j:slf4j-api")
+    implementation("pl.damianszczepanik:silencio")
+}

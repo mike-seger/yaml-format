@@ -1,0 +1,87 @@
+# Reference : Find sample of possible configuration properties at following link.
+# https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+---
+# server config are the environment specific custom properties which are read and populated by ServerConfig.java file on startup
+serverconfig:
+  app-name: "Spring External Configuration Test Harness"
+  api-base-path: "/api"
+  endpoint-api-base-path: "${serverconfig.api-base-path}/services"
+  production-profile-name: "production"
+
+spring:
+  # Store Sessions in the Database. Further details about configuration are at following URL
+  # https://docs.spring.io/spring-session/docs/current/reference/html5/#httpsession-jdbc-boot
+  session:
+    store-type: "jdbc"
+    jdbc:
+      table-name: "spring_session"
+  datasource:
+    initialization-mode: NEVER
+  data:
+    # Rest End Points
+    rest:
+      base-path: "${serverconfig.api-base-path}"
+      detection-strategy: "annotated"
+  flyway:
+    # mark baseline-on-migrate to true to run flyway on top of our existing database.
+    # Read description of all possible option at https://flywaydb.org/documentation/commandline/migrate
+    baseline-on-migrate: true
+    # Mark existing baseline version as 0.
+    # You can add the baseline SQL script as V0.0__Baseline.sql under main/resources/db/migration
+    # This will make scripts with V1.0 onwards executable in the database.
+    baseline-version: 0
+    baseline-description: "Empty database"
+    enabled: false
+  jpa:
+    hibernate:
+      dialect: "org.hibernate.dialect.MySQL5InnoDBDialect"
+      ddl-auto: "none"
+      # Fix for prioritize column name case conversions from camelCase to snake_case
+      # Read more at https://stackoverflow.com/questions/25283198/spring-boot-jpa-column-name-annotation-ignored
+      # https://flywaydb.org/documentation/existing.html
+      naming:
+        implicit-strategy: "org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl"
+        physical-strategy: "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl"
+    show-sql: false
+
+# Server Configuration
+server:
+  servlet:
+    session:
+      timeout: 1200s # 20 minutes.
+  port: 8088
+
+# Logging Configuration
+logging:
+  level:
+    org:
+      springframework:
+        web: "TRACE"
+      hibernate: "INFO"
+
+# Debugging
+debug: false
+trace: false
+
+mkweb:
+  db:
+    configuration:
+      baseurl: "jdbc:mysql://localhost:3307"
+      username: "root"
+      password: "Root@123"
+      driverClassName: "com.mysql.jdbc.Driver"
+    webapi:
+      jdbc-url: "${mkweb.db.configuration.baseurl}/webapi?zeroDateTimeBehavior=convertToNull&useSSL=false"
+      username: "${mkweb.db.configuration.username}"
+      password: "${mkweb.db.configuration.password}"
+      driverClassName: "${mkweb.db.configuration.driverClassName}"
+      maximum-pool-size: 5
+
+myapp:
+  stringList:
+    - fgsdfgfsd
+    - sdfgsdfgsdfg
+    - sdfgsdfgsdfg
+    - sdfgs
+    - sdfgsd
+
