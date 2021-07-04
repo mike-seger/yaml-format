@@ -36,19 +36,19 @@ subprojects {
 
 	spotless {
 		java {
-			indentWithTabs(1)
 			googleJavaFormat()
 			//target 'lib/src/*/java/**/*.java'
 			removeUnusedImports()
 			trimTrailingWhitespace()
 			endWithNewline()
-			importOrder 'java', 'javax', 'org', 'com', 'nesoy', ''
+			indentWithTabs(1)
+			importOrder 'java', 'javax', 'org', 'com', ''
 		}
 
 		format 'misc', {
 			target '**/*.gradle', '**/*.md', '**/.gitignore'
 			trimTrailingWhitespace()
-			indentWithTabs() // or spaces. Takes an integer argument if you don't like 4
+			indentWithTabs(1) // or spaces. Takes an integer argument if you don't like 4
 			endWithNewline()
 		}
 	}

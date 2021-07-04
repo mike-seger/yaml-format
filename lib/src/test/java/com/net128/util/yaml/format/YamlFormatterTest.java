@@ -37,7 +37,7 @@ public class YamlFormatterTest implements ResourceLoader {
 
 	@ParameterizedTest(name = "{1} -> {0}.")
 	@CsvSource({"issue-mod-aliases-formatted.yaml, issue-mod-aliases.yaml"
-			//	,"issue-merge-valid.yaml, issue-merge-valid.yaml"
+		//	,"issue-merge-valid.yaml, issue-merge-valid.yaml"
 	})
 	@DisplayName("Test identity YAML against expected result.")
 	public void testIdentityYaml(String expected, String actual)
