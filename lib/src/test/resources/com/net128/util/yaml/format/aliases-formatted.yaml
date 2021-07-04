@@ -1,0 +1,4 @@
+left hand: &id001
+  name: The Bastard Sword of Eowyn
+  weight: 30
+right hand: *id001

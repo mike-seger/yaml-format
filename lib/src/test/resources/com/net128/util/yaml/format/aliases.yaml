@@ -1,0 +1,4 @@
+left hand: &A
+  name: The Bastard Sword of Eowyn
+  weight: 30
+right hand: *A

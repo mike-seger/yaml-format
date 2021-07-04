@@ -1,0 +1,61 @@
+# original example by enelar
+ALIASES:
+
+  #1) With fingers - damage attacker, nothing changed with block. (&damageall)
+  #2) On wrong tool - nothing changed with block. (&wrongtool)
+  #3) On pickaxe, each race individual chance to drop, always drops cobblestone.
+  #4) Kill player else. (Broken with dirt, sand, fish, seeds, etc) (&atata)
+
+  - &wrongtool
+    tool: ANY
+    drop: DENY
+    exclusive: wrong
+  - &atata
+    damageattacker: 20
+    tool: ANY
+    drop: NOTHING
+    toolexcept: [ANY_SPADE, ANY_AXE, ANY_HOE, ANY_PICKAXE]
+    replacementblock: DEFAULT
+    message: "WTF! Wrong item... Non RP playing..."
+    exclusive: atata
+  - &damageall
+    tool: ALL
+    drop: AIR
+    replacementblock: DEFAULT
+    message: "Oh, my fingers!"
+    damageattacker: 1
+  - &defaultdroplow
+    tool: ALL
+    drop: DEFAULT
+    chance: 5
+  - &specitem
+    tool: ALL
+    drop: DEFAULT
+    chance: 100
+    exclusive: 1
+  - &dropstone
+    tool: ANY_PICKAXE
+    drop: COBBLESTONE
+    exclusive: 1
+
+COAL_ORE:
+  - <<: *wrongtool
+    toolexcept: ANY_PICKAXE
+  - <<: *damageall
+    damageattacker: 8
+  - <<: *atata
+  - <<: *dropstone
+  - &specitem-pick
+    <<: *specitem
+    tool: ANY_PICKAXE
+    chance: 40
+    permissions: race_a.COAL_ORE
+  - <<: *specitem-pick
+    chance: 60
+    permissions: race_h.COAL_ORE
+  - <<: *specitem-pick
+    chance: 60
+    permissions: race_t.COAL_ORE
+  - <<: *specitem-pick
+    chance: 5
+    permissions: race_r.COAL_ORE

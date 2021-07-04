@@ -1,0 +1,7 @@
+- &item001
+  boolean: true
+  integer: 7
+  float: 3.14
+- &item002
+  boolean: false
+- <<: [ *item002, *item001 ]
