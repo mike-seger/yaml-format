@@ -4,12 +4,12 @@ plugins {
 }
 
 dependencies {
-    implementation("org.slf4j:slf4j-api")
-    implementation("ch.qos.logback:logback-classic")
-    implementation project(':lib')
+	implementation("org.slf4j:slf4j-api")
+	implementation("ch.qos.logback:logback-classic")
+	implementation project(':lib')
 }
 
 application {
-    // Define the main class for the application.
-    mainClass = 'com.net128.util.yaml.format.app.YamlFormat'
+	// Define the main class for the application.
+	mainClass = 'com.net128.util.yaml.format.app.YamlFormat'
 }
