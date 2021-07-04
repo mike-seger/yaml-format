@@ -17,7 +17,7 @@ public class YamlFormatter {
     public String format(String input) {
         var yaml = new Yaml();
         var tree = yaml.loadAs(input, TreeMap.class);
-        tree = expandDottedKeys(tree);
+        tree = mapDottedKeys(tree);
         DumperOptions options = new DumperOptions();
         options.setIndent(2);
         options.setPrettyFlow(true);
@@ -51,13 +51,13 @@ public class YamlFormatter {
         addNodeToTree(parentTree, node);
     }
 
-    private TreeMap<String, Object> expandDottedKeys(final Map<String, Object> rootTree) {
+    private TreeMap<String, Object> mapDottedKeys(final Map<String, Object> rootTree) {
         var result=new TreeMap<String, Object>();
-        rootTree.forEach((key, value) -> addExpandedSubTree(result, new Node(key, value)));
+        rootTree.forEach((key, value) -> addMappedSubTreeKeys(result, new Node(key, value)));
         return result;
     }
 
-    private void addExpandedSubTree(Map<String, Object> parentTree, Node node) {
+    private void addMappedSubTreeKeys(Map<String, Object> parentTree, Node node) {
         if(node.key.contains(".")) {
             var keys = node.key.split("[.]");
             node.key = keys[keys.length-1];
