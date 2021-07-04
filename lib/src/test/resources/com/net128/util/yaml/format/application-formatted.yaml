@@ -1,0 +1,52 @@
+debug: false
+logging.level.org:
+  hibernate: INFO
+  springframework.web: TRACE
+mkweb.db:
+  configuration:
+    baseurl: jdbc:mysql://localhost:3307
+    driverClassName: com.mysql.jdbc.Driver
+    password: Root@123
+    username: root
+  webapi:
+    driverClassName: ${mkweb.db.configuration.driverClassName}
+    jdbc-url: ${mkweb.db.configuration.baseurl}/webapi?zeroDateTimeBehavior=convertToNull&useSSL=false
+    maximum-pool-size: 5
+    password: ${mkweb.db.configuration.password}
+    username: ${mkweb.db.configuration.username}
+myapp.stringList:
+- fgsdfgfsd
+- sdfgsdfgsdfg
+- sdfgsdfgsdfg
+- sdfgs
+- sdfgsd
+server:
+  port: 8088
+  servlet.session.timeout: 1200s
+serverconfig:
+  api-base-path: /api
+  app-name: Spring External Configuration Test Harness
+  endpoint-api-base-path: ${serverconfig.api-base-path}/services
+  production-profile-name: production
+spring:
+  data.rest:
+    base-path: ${serverconfig.api-base-path}
+    detection-strategy: annotated
+  datasource.initialization-mode: NEVER
+  flyway:
+    baseline-description: Empty database
+    baseline-on-migrate: true
+    baseline-version: 0
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: false
+  session:
+    jdbc.table-name: spring_session
+    store-type: jdbc
+trace: false

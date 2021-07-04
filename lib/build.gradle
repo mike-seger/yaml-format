@@ -5,5 +5,4 @@ plugins {
 dependencies {
     implementation("org.yaml:snakeyaml")
     implementation("org.slf4j:slf4j-api")
-    implementation("pl.damianszczepanik:silencio")
 }
