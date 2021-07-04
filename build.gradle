@@ -1,0 +1,54 @@
+plugins {
+	id 'java'
+	id 'com.diffplug.spotless' version '5.14.0'
+//	id 'com.diffplug.spotless' version '5.5.1'
+//	id 'com.diffplug.spotless' version '5.3.0'
+//	id 'com.diffplug.spotless' version '5.4.0'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+
+repositories {
+	mavenCentral()
+}
+
+subprojects {
+	apply plugin: 'java'
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		implementation("org.slf4j:slf4j-api:1.7.2")
+		implementation("ch.qos.logback:logback-classic:1.2.3")
+		implementation("org.yaml:snakeyaml:1.29")
+
+		// Use JUnit Jupiter API for testing.
+		testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+		testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.2'
+
+		// Use JUnit Jupiter Engine for testing.
+		testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+	}
+}
+
+spotless {
+	java {
+//		indentWithTabs(4)
+		googleJavaFormat()
+		target 'lib/src/*/java/**/*.java'
+		removeUnusedImports()
+		trimTrailingWhitespace()
+		endWithNewline()
+		importOrder 'java', 'javax', 'org', 'com', 'nesoy', ''
+	}
+
+	format 'misc', {
+		target '**/*.gradle', '**/*.md', '**/.gitignore'
+		trimTrailingWhitespace()
+		indentWithTabs() // or spaces. Takes an integer argument if you don't like 4
+		endWithNewline()
+	}
+}

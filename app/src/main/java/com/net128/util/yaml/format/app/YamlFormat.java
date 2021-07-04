@@ -20,6 +20,7 @@ public class YamlFormat {
         File yamlFile=new File(list.get(0));
         if(!yamlFile.exists()) {
             logger.info("Cannot find yaml-file: {}", yamlFile);
+            logger.info("Working directory: {}", new File(".").getAbsolutePath());
             logger.info("Files found in directory {}: {}",
                 yamlFile.getParentFile(),
                 Arrays.asList(Objects.requireNonNull(yamlFile.getParentFile().list())));
