@@ -8,8 +8,7 @@ import java.util.Objects;
 
 public interface ResourceLoader {
 	default String fromResource(String location) throws IOException, URISyntaxException {
-		return new String(
-				Files.readAllBytes(
-						Paths.get(Objects.requireNonNull(getClass().getResource(location)).toURI())));
+		return new String(Files.readAllBytes(
+			Paths.get(Objects.requireNonNull(getClass().getResource(location)).toURI())));
 	}
 }
